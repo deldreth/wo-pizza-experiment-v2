@@ -13,11 +13,11 @@ class Pizza extends React.Component {
   };
 
   onChangeTopping = topping => event => {
-    if (
-      !this.props.pizza.maxToppings ||
-      (this.props.pizza.totalSelected < this.props.pizza.maxToppings ||
-        topping.selected)
-    ) {
+    const { maxToppings, totalSelected } = this.props.pizza;
+
+    if (!maxToppings) {
+      this.props.toggleTopping(topping.name);
+    } else if(totalSelected < maxToppings || topping.selected) {
       this.props.toggleTopping(topping.name);
     }
   };
