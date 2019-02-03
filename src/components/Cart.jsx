@@ -3,7 +3,7 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { css } from 'emotion';
 
-import Pizza from './Pizza';
+import Pizza from './Pizza/index';
 
 function Cart(props) {
   return (
@@ -12,7 +12,7 @@ function Cart(props) {
         <h3 className="title">Pizzas</h3>
 
         <section className={cartGridStyle}>
-          {/* {Object.keysprops.pizzas.length === 0 && 'Pick a size'} */}
+          {Object.keys(props.pizzas).length === 0 && 'Your cart is empty.'}
 
           {Object.keys(props.pizzas).map(id => (
             <Pizza key={id} id={id} pizza={props.pizzas[id]} />
