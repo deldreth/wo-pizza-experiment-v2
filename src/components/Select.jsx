@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { connect } from 'react-redux';
 import { Query } from 'react-apollo';
@@ -7,15 +7,17 @@ import { css, cx } from 'emotion';
 import { QUERY_PIZZA_SIZES } from '../graphql/queries';
 import { asyncAddPizza } from '../redux/actions';
 
-const selectStyle = css(`
-  display: inline-block;
-`);
-
 function Select(props) {
   return (
     <Query query={QUERY_PIZZA_SIZES}>
       {({ data, loading, error }) => (
-        <div className={cx(['nes-container', 'with-title', selectStyle])}>
+        <div
+          className={cx([
+            'nes-container',
+            'with-title',
+            css({ display: 'inline-block' }),
+          ])}
+        >
           <h2 className="title">Select a size</h2>
           {loading && 'Fetching pizza sizes...'}
           {error && 'Could not get pizza sizes...'}
@@ -45,16 +47,13 @@ export default connect(
   mapDispatch
 )(Select);
 
-const buttonStyles = css(`
-  margin: 0px 1rem;
-`);
-function Button(props) {
+const Button = memo(function(props) {
   return (
     <button
       onClick={props.onClick}
-      className={cx(['nes-btn', buttonStyles])}
+      className={cx(['nes-btn', css({ margin: '0px 1rem' })])}
     >
       {props.name}
     </button>
   );
-}
+});

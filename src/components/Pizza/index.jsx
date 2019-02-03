@@ -17,7 +17,7 @@ class Pizza extends React.Component {
 
     if (!maxToppings) {
       this.props.toggleTopping(topping.name);
-    } else if(totalSelected < maxToppings || topping.selected) {
+    } else if (totalSelected < maxToppings || topping.selected) {
       this.props.toggleTopping(topping.name);
     }
   };
@@ -46,7 +46,13 @@ class Pizza extends React.Component {
         <h3>Toppings:</h3>
         <form>{this.renderToppings()}</form>
 
-        <h3 className={totalStyle}>${this.props.pizza.price.toFixed(2)}</h3>
+        <h3
+          className={css({
+            textAlign: 'right',
+          })}
+        >
+          ${this.props.pizza.price.toFixed(2)}
+        </h3>
       </article>
     );
   }
@@ -63,7 +69,3 @@ export default connect(
   null,
   mapDispatch
 )(Pizza);
-
-const totalStyle = css({
-  textAlign: 'right',
-});
